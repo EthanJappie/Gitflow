@@ -1,0 +1,5 @@
+﻿
+
+wsdl /language:CS /n:"BMWFSIndexingServiceProxy.cs" http://ZAMFFS07/bmwfsindexer/BMWFSIndexingService.asmx?wsdl /out:"C:\Projects\New_BMW.FS_DocumentIndexing\BMW.FS.Indexing.WebServices"
+
+

@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col">
+        <form asp-controller="Status" asp-action="Applications">
+            <div class="form-inline">
+
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="btn btn-outline-primary">
+                        <input type="radio" name="criteriaType" id="criteriaDateRange" autocomplete="off" value="DateRange" required> Date Range
+                    </label>
+                    <label class="btn btn-outline-primary">
+                        <input type="radio" name="criteriaType" id="criteriaAppID" autocomplete="off" value="AppID" required> App ID
+                    </label>
+                    <label class="btn btn-outline-primary">
+                        <input type="radio" name="criteriaType" id="criteriaDealRef" autocomplete="off" value="Deal" required> Deal Ref
+                    </label>
+                </div>
+
+                <div class="col">
+                    <div class="form-inline">
+                        <div id="dateRange" class="form-inline d-none">
+                            <input id="dateFrom" class="mr-1" name="dateFrom" width="200" placeholder="Date From" />
+
+                            <input id="dateTo" name="dateTo" class="ml-1" width="200" placeholder="Date To" />
+                        </div>
+                        <div id="reference" class="d-none">
+                            <input type="text" id="refNumber" name="referenceNumber" class="form-control" required>
+                        </div>
+                        <input type="submit" value="Search" class="btn btn-success ml-2" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(function () {
+        $('#dateFrom').datepicker({
+            uiLibrary: 'bootstrap4'
+        });
+        $('#dateTo').datepicker({
+            uiLibrary: 'bootstrap4'
+        });
+
+        $("#criteriaAppID").on("change", function () {
+            if ($(this).is(":checked")) {
+                $("#dateRange").addClass("d-none");
+                $("#reference").removeClass("d-none");
+                $("#refNumber").attr("placeholder", "Enter Application ID");
+            }
+        });
+
+        $("#criteriaDealRef").on("change", function () {
+            if ($(this).is(":checked")) {
+                $("#dateRange").addClass("d-none");
+                $("#reference").removeClass("d-none");
+                $("#refNumber").attr("placeholder", "Enter Reference Number");
+            }
+        });
+
+        $("#criteriaDateRange").on("change", function () {
+            if ($(this).is(":checked")) {
+                $("#dateRange").removeClass("d-none");
+                $("#reference").addClass("d-none");
+            }
+        });
+    });
+
+</script>
+

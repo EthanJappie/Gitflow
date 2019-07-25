@@ -1,0 +1,15 @@
+C:\Projects\QuickIndexing\QuickIndexing\BMW.FS.Indexing.WebServices\bin\x86\Debug\BMWFSIndexingService.asmx
+C:\Projects\QuickIndexing\QuickIndexing\BMW.FS.Indexing.WebServices\bin\x86\Debug\BMWFSIndexingService.asmx.cs
+C:\Projects\QuickIndexing\QuickIndexing\BMW.FS.Indexing.WebServices\bin\x86\Debug\BMW.FS.Indexing.WebServices.dll.config
+C:\Projects\QuickIndexing\QuickIndexing\BMW.FS.Indexing.WebServices\bin\x86\Debug\BMW.FS.Indexing.WebServices.dll
+C:\Projects\QuickIndexing\QuickIndexing\BMW.FS.Indexing.WebServices\bin\x86\Debug\BMW.FS.Indexing.WebServices.pdb
+C:\Projects\QuickIndexing\QuickIndexing\BMW.FS.Indexing.WebServices\bin\x86\Debug\ABCpdf.DLL
+C:\Projects\QuickIndexing\QuickIndexing\BMW.FS.Indexing.WebServices\bin\x86\Debug\FSBarcodeRW.dll
+C:\Projects\QuickIndexing\QuickIndexing\BMW.FS.Indexing.WebServices\bin\x86\Debug\KYC_PDF.dll
+C:\Projects\QuickIndexing\QuickIndexing\BMW.FS.Indexing.WebServices\bin\x86\Debug\PBSA_DriversLicenceDecoding.dll
+C:\Projects\QuickIndexing\QuickIndexing\BMW.FS.Indexing.WebServices\obj\x86\Debug\BMW.FS.Indexing.WebServices.Properties.Resources.resources
+C:\Projects\QuickIndexing\QuickIndexing\BMW.FS.Indexing.WebServices\obj\x86\Debug\BMW.FS.Indexing.WebServices.csproj.GenerateResource.cache
+C:\Projects\QuickIndexing\QuickIndexing\BMW.FS.Indexing.WebServices\obj\x86\Debug\BMW.FS.Indexing.WebServices.csproj.CoreCompileInputs.cache
+C:\Projects\QuickIndexing\QuickIndexing\BMW.FS.Indexing.WebServices\obj\x86\Debug\BMW.FS.Indexing.WebServices.csproj.CopyComplete
+C:\Projects\QuickIndexing\QuickIndexing\BMW.FS.Indexing.WebServices\obj\x86\Debug\BMW.FS.Indexing.WebServices.dll
+C:\Projects\QuickIndexing\QuickIndexing\BMW.FS.Indexing.WebServices\obj\x86\Debug\BMW.FS.Indexing.WebServices.pdb

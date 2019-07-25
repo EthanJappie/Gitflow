@@ -1,0 +1,396 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="row mb-2">
+    <div class="col">
+        <form class="form-inline" method="post" asp-controller="Home" asp-action="SetRef" id="formSetRef">
+            @{
+                if (string.IsNullOrEmpty(ReferenceModel.ReferenceNumber))
+                {
+                    <div class="form-group">
+                        <div class="input-group-prepend ml-2">
+                            <span class="input-group-text" id="referenceNo">Reference No:</span>
+                        </div>
+                        <input type="text" id="refNumber" name="referenceNumber" class="form-control mr-2 ml-1" required>
+
+                        <div>
+                            <input type="submit" class="btn btn-info mr-2" name="referenceAction" id="setReference" value="Apply" />
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="referenceNo">Reference No: @ReferenceModel.ReferenceNumber</span>
+                    </div>
+                    <div>
+                        <input type="submit" class="btn btn-info ml-2" name="referenceAction" id="clearReference" value="Clear" />
+                    </div>
+                }
+            }
+            @{
+                if (string.IsNullOrEmpty(ReferenceModel.ReferenceNumber))
+                {
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        @*<label class="btn btn-outline-primary">
+                            <input type="radio" name="referenceType" id="referenceTypeDP" autocomplete="off" value="Credt" required disabled> Credit
+                        </label>*@
+                        <label class="btn btn-outline-primary">
+                            <input type="radio" name="referenceType" id="referenceTypeDP" autocomplete="off" value="DP" required> DP Ref
+                        </label>
+                        <label class="btn btn-outline-primary">
+                            <input type="radio" name="referenceType" id="referenceTypeDeal" autocomplete="off" value="Deal" required> Deal Ref
+                        </label>
+                    </div>
+                }
+            }
+        </form>
+    </div>
+
+    <div class="col">
+        @{
+            if (!string.IsNullOrEmpty(ReferenceModel.ReferenceNumber))
+            {
+                <form asp-controller="Home" asp-action="ClearUploads">
+                    <div class="float-right">
+                        @{
+                            if ((UploadModel.FileCount > 0))
+                            {
+                                <input id="clearUploads" type="submit" class="btn btn-danger" value="Clear Uploads" />
+                            }
+                            else
+                            {
+                                <input id="clearUploads" type="submit" class="btn btn-danger" value="Clear Uploads" disabled />
+                            }
+                        }
+                    </div>
+                </form>
+                <form class="form-inline float-right" id="formUpload" method="post" enctype="multipart/form-data" asp-controller="Home" asp-action="Post">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" name="files" id="fileInput" multiple accept=".pdf, .jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*">
+                                <label class="custom-file-label" for="files">Choose files</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mr-1">
+                        <div class="form-group">
+                            <div class="ml-4">
+                                <input type="submit" class="btn btn-primary" id="uploadFiles" value="Upload">
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            }
+        }
+    </div>
+</div>
+<div class="row">
+    <div class="col-3" style="overflow-y: scroll; overflow:auto; max-height:80vh;">
+        <div id="Tree" style="overflow-y: scroll; overflow:auto;"></div>
+    </div>
+    <div class="col-6" style="">
+        <div class="text-center">
+            <img class="d-none" id="imagePreviewCenter" src="" data-path="" height="700" asp-append-version="true" />
+        </div>
+        <div id="imageControls" class="btn-group-sm text-center d-none">
+            <button id="flipVer" type="button" class="btn btn-outline-warning">Flip Vertical</button>
+            <button id="flipHor" type="button" class="btn btn-outline-warning">Flip Horizontal</button>
+            <button id="rotLeft" type="button" class="btn btn-outline-warning">Rotate Left</button>
+            <button id="rotRight" type="button" class="btn btn-outline-warning">Rotate Right</button>
+        </div>
+    </div>
+    <div class="col-3" style="">
+        <div class="row " id="fileUploads">
+            @{
+                if (!string.IsNullOrEmpty(ReferenceModel.ReferenceNumber))
+                {
+                    <div class="form-group">
+                        @if (UploadModel.FileCount > 0)
+                        {
+                            <div class="mr-4">
+                                <table class="table table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">File</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="font-weight-light">
+                                            <td></td>
+                                            <td>
+                                                <div style="float:right;">
+                                                    <label class="form-check-label" for="selectAll">
+                                                        Select All
+                                                    </label>
+                                                    <input type="checkbox" class="custom-checkbox mt-2 ml-2" id="selectAll" onclick="selectAll(this)" style="float:right;" />
+                                                </div>
+
+                                            </td>
+                                        </tr>
+                                        @{
+                                            foreach (var item in UploadModel.FileDetail)
+                                            {
+                                                <tr class="font-weight-light">
+                                                    <th><span class="display-8">@item.Filename</span></th>
+                                                    <td>
+                                                        <div class="form-inline">
+                                                            <button onclick="viewImage(this)" type="button" value="@item.FilePath" class="btn btn-dark float-right mx-2">View</button>
+
+                                                            <form asp-controller="Home" asp-action="RemoveFile">
+                                                                <button id="deleteFile" type="submit" value="@item.FilePath" name="filePath" class="btn btn-danger float-right mr-2">Remove</button>
+                                                            </form>
+
+                                                            <input type="checkbox" class="custom-checkbox" value="@item.FilePath" />
+                                                        </div>
+
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                                <div class="row">
+                                    <div class="col"></div>
+                                    <div class="col">
+                                        <div class="float-right ml-2">
+                                            <form asp-controller="Document" asp-action="SubmitDocs" id="submitDocs">
+                                                <input type="button" class="btn btn-success" value="Submit" id="submitDocuments" />
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+
+@{
+    if (!string.IsNullOrEmpty(ReferenceModel.ReferenceError))
+    {
+        <div class="alert alert-danger alert-dismissible text-center text-capitalize" role="alert">
+            @ReferenceModel.ReferenceError
+            <button type="button" id="closeAlert" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+}
+
+
+<script type="text/javascript">
+
+    function selectAll(prop) {
+        console.log("clicked");
+        $("input:checkbox").prop("checked", prop.checked).change();
+    }
+
+    function refreshModal(path) {
+        $.ajax({
+            url: '@Url.Action("ViewImage","Home")',
+            data: { path: path },
+            success: function (data) {
+                console.log(data);
+                $("#imagePreviewCenter").attr('src', "data:image/png;base64," + data.data).attr('data-path', data.path);
+            }
+        });
+    }
+
+
+function viewImage(button) {
+        console.log($(button).val());
+
+        $.ajax({
+            url: '@Url.Action("ViewImage","Home")',
+            data: { path: $(button).val() },
+            success: function (data) {
+                console.log(data);
+                $("#imagePreviewCenter").prop("display", "block").attr('src', "data:image/png;base64," + data.data).attr('data-path', data.path).removeClass("d-none");
+            }
+        });
+    }
+
+    function toggleAlert(){
+        $(".alert").toggleClass('in out');
+        return false; // Keep close.bs.alert event from removing from DOM
+    }
+
+    $(function () {
+        //Document details on select
+        var documentId = 0;
+        var folderId = 0;
+        var documentDescription = "";
+
+        $("#imagePreviewCenter").on("load", function () {
+            $("#imagePreviewCenter").removeClass("d-none");
+            $("#imageControls").removeClass("d-none");
+        });
+
+        $("#submitDocuments").on("click", function () {
+            var selectedDocs = new Array();
+
+            $("input:checkbox:checked").each(function () {
+                selectedDocs.push($(this).val());
+            });
+
+            if (selectedDocs.length > 0) {
+                //Document ID
+                if (!$("input[name=documentId]").length) {
+                    $("<input/>").attr("type", "hidden")
+                        .attr("name", "documentId")
+                        .attr("value", documentId)
+                        .appendTo("#submitDocs");
+                }
+                else {
+                    $("input[name=documentId]").val(documentId);
+                }
+
+                //Folder ID
+                if (!$("input[name=folderId]").length) {
+                    $("<input/>").attr("type", "hidden")
+                        .attr("name", "folderId")
+                        .attr("value", folderId)
+                        .appendTo("#submitDocs");
+                }
+                else {
+                     $("input[name=folderId]").val(folderId);
+                }
+
+                //DocumentDescription
+                if (!$("input[name=documentDescription]").length) {
+                    $("<input/>").attr("type", "hidden")
+                        .attr("name", "documentDescription")
+                        .attr("value", documentDescription)
+                        .appendTo("#submitDocs");
+                } else {
+                     $("input[name=documentDescription]").val(documentDescription);
+                }
+
+                //Selected Documents
+                if (!$("input[name=selectedFiles]").length) {
+                    $("<input/>").attr("type", "hidden")
+                        .attr("name", "selectedFiles")
+                        .attr("value", JSON.stringify(selectedDocs))
+                        .appendTo("#submitDocs");
+                } else {
+                    $("input[name=selectedFiles]").val(JSON.stringify(selectedDocs));
+                }
+
+                if (documentId === 0 || folderId === 0) {
+                    alert("Please select a bucket");
+                } else {
+                    $("#submitDocs").submit();
+                }
+            }
+        });
+
+        $("#selectAll").on("click", function () {
+            console.log("clicked");
+        });
+
+        var referenceNumber = $("#refNumber").val();
+        var referenceType = $("input[name=referenceType]").val()
+
+        var data = { referenceType: referenceType, referenceNumber: referenceNumber };
+
+        var tree = $('#Tree').tree({
+            uiLibrary: 'bootstrap4',
+            dataSource: '@Url.Action("GetDocumentTree","Tree")' + '?referenceType=' + '@ReferenceModel.DealType' + '&referenceNumber=' + '@ReferenceModel.ReferenceNumber',
+            primaryKey: 'id',
+            dataBound: function (e) {
+                var treeData = tree.data();
+
+                for (var i = 0; i < treeData.records.length; i++) {
+                    for (var j = 0; j < treeData.records[i].children.length; j++) {
+                        var colour = treeData.records[i].children[j].bucketColour.toLowerCase();
+
+                        console.log(colour);
+                        //tree.setNodeColorById(treeData.records[i].children[j].id, colour);
+
+                        var node = tree.getNodeById(treeData.records[i].children[j].id).addClass("gj-list-" + colour);
+                    }
+                }
+            },
+            select: function (e, node, id) {
+                var nodeData = tree.getDataById(id);
+                documentId = nodeData.documentID;
+                folderId = nodeData.folderID;
+                documentDescription = nodeData.description;
+
+                console.log("Doc ID " + documentId + "  Folder Id " + folderId + "  Doc Description " + documentDescription + " Bucket Colour " + nodeData.bucketColour);
+            }
+        });
+
+        $('.alert').alert();
+
+    $("#rotLeft").on("click", function () {
+        var filePath = $("#imagePreviewCenter").attr("data-path");
+
+        $.ajax({
+            url: '@Url.Action("ImageRotation","Home")',
+            data: { filePath: filePath, rotationDir: "left" },
+            success: function () {
+                console.log('rotated left');
+                refreshModal(filePath)
+            }
+        });
+    });
+
+    $("#flipHor").on("click", function () {
+        var filePath = $("#imagePreviewCenter").attr("data-path");
+        $.ajax({
+        url: '@Url.Action("ImageRotation","Home")',
+        data: { filePath: filePath, rotationDir: "horizontal" },
+        success: function () {
+            console.log('flipped horizontally');
+            refreshModal(filePath)
+        }
+        });
+    });
+
+    $("#flipVer").on("click", function () {
+        var filePath = $("#imagePreviewCenter").attr("data-path");
+        $.ajax({
+        url: '@Url.Action("ImageRotation","Home")',
+        data: { filePath: filePath, rotationDir: "vertical" },
+        success: function () {
+            console.log('flipped vertically');
+            refreshModal(filePath)
+        }
+        });
+    });
+
+    $("#rotRight").on("click", function () {
+        var filePath = $("#imagePreviewCenter").attr("data-path");
+        $.ajax({
+            url: '@Url.Action("ImageRotation","Home")',
+            data: { filePath: filePath, rotationDir: "right" },
+            success: function () {
+                console.log('rotated right');
+                refreshModal(filePath)
+            }
+        });
+    });
+
+    $("#fileInput").on("change", function () {
+        var fileCount = $(this)[0].files.length
+        var fileName = "";
+
+        for (var i = 0; i < fileCount; i++) {
+            fileName += $(this)[0].files[i].name + ', ';
+        }
+        $(".custom-file-label").html(fileName);
+    })
+});
+</script>
+
+
+

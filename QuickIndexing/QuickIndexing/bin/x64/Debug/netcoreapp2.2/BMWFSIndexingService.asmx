@@ -1,0 +1,1 @@
+﻿<%@ WebService Language="C#" CodeBehind="BMWFSIndexingService.asmx.cs" Class="BMW.FS.Indexing.WebServices.BMWFSIndexingService" %>

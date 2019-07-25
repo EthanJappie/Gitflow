@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model AuthModel
+
+<div class="container">
+    <div class="text-center mb-5">
+        <h4 class="text-dark display-4">Login</h4>
+    </div>
+
+    <div class="mx-auto justify-content-center">
+        <div class="row">
+            <div class="col"></div>
+            <div class="col col-5">
+                <form method="post" asp-controller="Login" asp-action="Login">
+                    <div>
+                        <label asp-for="Username"></label>
+                        <input class="form-control " asp-for="Username" />
+                        <span asp-validation-for="Username"></span>
+                    </div>
+
+                    <div>
+                        <label asp-for="Password"></label>
+                        <input class="form-control mb-3" asp-for="Password" type="password" />
+                        <span asp-validation-for="Password"></span>
+                    </div>
+                    <input class="btn btn-primary form-control mb-3" type="submit" value="Login" />
+                </form>
+            </div>
+            <div class="col"></div>
+        </div>
+        @{
+            if (!string.IsNullOrEmpty(SessionModel.ErrorMessage))
+            {
+                <div class="row">
+                    <div class="col text-center text-danger text-capitalize">
+                        @SessionModel.ErrorMessage
+                    </div>
+                </div>
+            }
+        }
+
+    </div>
+</div>
+

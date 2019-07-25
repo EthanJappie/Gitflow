@@ -1,0 +1,12 @@
+C:\Projects\BMW QuickIndexing\BMW.FS_DocumentIndexing\BMW.FS.Indexing.WebServices\obj\Debug\BMW.FS.Indexing.WebServices.Properties.Resources.resources
+C:\Projects\BMW QuickIndexing\BMW.FS_DocumentIndexing\BMW.FS.Indexing.WebServices\obj\Debug\BMW.FS.Indexing.WebServices.csproj.GenerateResource.cache
+C:\Projects\BMW QuickIndexing\BMW.FS_DocumentIndexing\BMW.FS.Indexing.WebServices\obj\Debug\BMW.FS.Indexing.WebServices.csproj.CoreCompileInputs.cache
+C:\Projects\BMW QuickIndexing\BMW.FS_DocumentIndexing\BMW.FS.Indexing.WebServices\bin\BMWFSIndexingService.asmx
+C:\Projects\BMW QuickIndexing\BMW.FS_DocumentIndexing\BMW.FS.Indexing.WebServices\bin\BMWFSIndexingService.asmx.cs
+C:\Projects\BMW QuickIndexing\BMW.FS_DocumentIndexing\BMW.FS.Indexing.WebServices\bin\BMW.FS.Indexing.WebServices.dll.config
+C:\Projects\BMW QuickIndexing\BMW.FS_DocumentIndexing\BMW.FS.Indexing.WebServices\bin\BMW.FS.Indexing.WebServices.dll
+C:\Projects\BMW QuickIndexing\BMW.FS_DocumentIndexing\BMW.FS.Indexing.WebServices\bin\BMW.FS.Indexing.WebServices.pdb
+C:\Projects\BMW QuickIndexing\BMW.FS_DocumentIndexing\BMW.FS.Indexing.WebServices\obj\Debug\BMW.FS.Indexing.WebServices.csproj.CopyComplete
+C:\Projects\BMW QuickIndexing\BMW.FS_DocumentIndexing\BMW.FS.Indexing.WebServices\obj\Debug\BMW.FS.Indexing.WebServices.dll
+C:\Projects\BMW QuickIndexing\BMW.FS_DocumentIndexing\BMW.FS.Indexing.WebServices\obj\Debug\BMW.FS.Indexing.WebServices.pdb
+C:\Projects\BMW QuickIndexing\BMW.FS_DocumentIndexing\BMW.FS.Indexing.WebServices\obj\Debug\BMW.FS.Indexing.WebServices.csprojAssemblyReference.cache
